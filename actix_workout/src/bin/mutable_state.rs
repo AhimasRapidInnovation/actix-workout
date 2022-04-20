@@ -1,7 +1,16 @@
-use actix_web::{get,HttpServer,App, web, Responder};
+use actix_web::{get,HttpServer,App, web, Responder, HttpResponse};
 
 use std::sync::Mutex;
 
+
+
+fn scoped_config(cfg: &mut web::ServiceConfig){
+    // now attach the service to the config
+    cfg.service(
+      web::resource("test/{name}")
+        .route(web::get().to(|| async {HttpResponse::Ok().body("From scoped config")}))
+    );
+}
 
 struct MutableState {
     counter: Mutex<usize>, // since `web::Data` already uses Arc we do no need to use Sync 
@@ -33,6 +42,7 @@ async fn main() -> std::io::Result<()> {
 
         App::new()
             .app_data(state.clone())
+            .configure(scoped_config)
             .service(index)
     })
     .bind("127.0.0.1:8080")?
