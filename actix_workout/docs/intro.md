@@ -29,6 +29,8 @@ async fn hello() -> impl Responder
 * If __handler is not attached with route then pass to `.route(/path, web::get().to(handler)` 
 ### HttpServer
 
+* Constructs an application instance for each `thread`
+* 
 
 
 ## #[actix_web::main]

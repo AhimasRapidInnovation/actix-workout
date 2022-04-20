@@ -27,5 +27,9 @@ actix-web servers are built around the `App` instance
     .app_data(web::Data::new(?Sized))
   ```
   * `app_data` used to register the state to an application
-    
+  ##### Mutable State
+  * Shared object should be `Send + Sync`
+  * `web::Data` internally uses `Arc` 
+  * So need to create `web::Data` before registering with `App`
+  * 
 
