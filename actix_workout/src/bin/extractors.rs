@@ -19,6 +19,14 @@ async fn query(info: web::Query<QueryInfo>) -> Result<String> {
 }
 
 
+// async fn check_builder() -> String {
+
+//     let mut builder = HttpResponse::Ok()
+//                         .content_type()
+//     "".into()
+// }
+
+
 #[get("/users/{user_id}/{name}")]
 async fn hello(path: web::Path<(i32, String)>) -> Result<String>
 {
